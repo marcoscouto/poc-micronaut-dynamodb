@@ -12,6 +12,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
+import java.util.*
 
 @Controller("/users")
 class UserController(private val repository: UserRepository) {
@@ -24,6 +25,7 @@ class UserController(private val repository: UserRepository) {
 
     @Post
     fun saveUser(@Body user: User): HttpResponse<Any> {
+        user.identifier = UUID.randomUUID().toString()
         repository.saveUser(user)
         return HttpResponse.status(CREATED)
     }
