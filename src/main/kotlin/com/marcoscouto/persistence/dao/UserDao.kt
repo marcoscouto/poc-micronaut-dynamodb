@@ -1,5 +1,6 @@
 package com.marcoscouto.persistence.dao
 
+import com.marcoscouto.common.DynamoConstants.USERS_TABLE
 import com.marcoscouto.domain.User
 import com.marcoscouto.persistence.UserRepository
 import jakarta.inject.Singleton
@@ -31,7 +32,7 @@ class UserDao(
             .dynamoDbClient(client)
             .build()
 
-        return enhanced.table("users", TableSchema.fromBean(User::class.java))
+        return enhanced.table(USERS_TABLE, TableSchema.fromBean(User::class.java))
     }
 
 }

@@ -1,3 +1,8 @@
 micronaut:
   application:
     name: dynamodb
+
+dynamodb:
+  host: ${DYNAMO_HOST:`http://localhost:8000`}
+  accessKeyId: ${DYNAMO_ACCESS_KEY_ID:fake}
+  secretAccessKey: ${DYNAMO_SECRET_ACCESS_KEY:fake}

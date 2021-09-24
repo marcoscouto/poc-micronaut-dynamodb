@@ -11,9 +11,7 @@ import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 
 @Controller("/users")
-class UserController(val repository: UserRepository) {
-
-
+class UserController(private val repository: UserRepository) {
 
     @Get("/{identifier}")
     fun getUser(@PathVariable identifier: String): HttpResponse<Any> {
