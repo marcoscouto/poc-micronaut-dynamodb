@@ -20,6 +20,32 @@
 
 4.1 - Haven't gradle installed? Don't worry, use gradle wrapper with command **./gradlew build && ./gradlew run**
 
+## Endpoints
+
+Get - /users/{identifier}
+
+    Identifier (string)
+    Reference for user identifier
+
+Post - /users
+
+    {
+        "name": string,
+        "age": int
+    }
+
+Put - /users
+
+    {
+        "identifier": string
+        "name": string,
+        "age": int
+    }
+
+Delete - /users/{identifier}
+
+    Identifier (string)
+
 ## References
 
 - https://towardsaws.com/micronaut-application-on-aws-38ee7f029980
