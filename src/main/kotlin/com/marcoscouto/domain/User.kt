@@ -1,3 +1,14 @@
 package com.marcoscouto.domain
 
-data class User(val age: Int, val name: String)
+import io.micronaut.core.annotation.Introspected
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey
+
+@Introspected
+@DynamoDbBean
+data class User(
+    @get:DynamoDbPartitionKey
+    var identifier: String? = null,
+    var age: Int = 0,
+    var name: String = ""
+)

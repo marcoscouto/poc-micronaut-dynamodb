@@ -13,5 +13,8 @@ services:
       - "8001:8001"
     environment:
       DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
+      AWS_REGION: "sa-east-1"
+      AWS_ACCESS_KEY_ID: "fake"
+      AWS_SECRET_ACCESS_KEY: "fake"
     depends_on:
       - dynamodb-local

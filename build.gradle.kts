@@ -39,14 +39,14 @@ dependencies {
 
     // DynamoDB
     implementation("software.amazon.awssdk:dynamodb")
-
+    implementation("software.amazon.awssdk:dynamodb-enhanced")
 
 }
-
 
 application {
     mainClass.set("com.marcoscouto.ApplicationKt")
 }
+
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
 }
@@ -62,6 +62,4 @@ tasks {
             jvmTarget = "11"
         }
     }
-
-
 }
