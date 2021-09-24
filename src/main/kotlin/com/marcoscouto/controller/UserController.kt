@@ -19,19 +19,21 @@ class UserController(private val repository: UserRepository) {
 
     @Get("/{identifier}")
     fun getUser(@PathVariable identifier: String): HttpResponse<Any> {
-        val result = repository.getUser(identifier) ?: return HttpResponse.notFound()
+        val result = repository.getUser(identifier) ?: return HttpResponse.notFound("$identifier not found")
         return HttpResponse.ok(result)
     }
 
     @Post
     fun saveUser(@Body user: User): HttpResponse<Any> {
+        if (user.identifier != null) return HttpResponse.badRequest("identifier must be null")
         user.identifier = UUID.randomUUID().toString()
         repository.saveUser(user)
         return HttpResponse.status(CREATED)
     }
 
-    @Put("/{identifier}")
-    fun saveUser(@PathVariable identifier: String, @Body user: User): HttpResponse<Any> {
+    @Put
+    fun updateUser(@Body user: User): HttpResponse<Any> {
+        val identifier = user.identifier ?: return HttpResponse.badRequest("identifier is required")
         repository.getUser(identifier) ?: return HttpResponse.notFound()
         repository.saveUser(user)
         return HttpResponse.status(OK)
@@ -39,7 +41,7 @@ class UserController(private val repository: UserRepository) {
 
     @Delete("/{identifier}")
     fun deleteUser(@PathVariable identifier: String): HttpResponse<Any> {
-        repository.getUser(identifier) ?: return HttpResponse.notFound()
+        repository.getUser(identifier) ?: return HttpResponse.notFound("$identifier not found")
         repository.deleteUser(identifier)
         return HttpResponse.status(OK)
     }
