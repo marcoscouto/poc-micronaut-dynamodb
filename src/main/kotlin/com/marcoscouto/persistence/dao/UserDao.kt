@@ -16,10 +16,16 @@ class UserDao(
     private val client: DynamoDbClient
 ) : UserRepository {
 
-    override fun getUser(identifier: String): User {
+    override fun getUser(identifier: String): User? {
         val table = dynamoTable()
-        val key = Key.builder().partitionValue(AttributeValue.builder().s(identifier).build()).build()
+        val key = Key.builder().partitionValue(
+            AttributeValue.builder()
+                .s(identifier)
+                .build()
+        ).build()
+
         return table.getItem { it.key(key) }
+
     }
 
     override fun saveUser(user: User) {

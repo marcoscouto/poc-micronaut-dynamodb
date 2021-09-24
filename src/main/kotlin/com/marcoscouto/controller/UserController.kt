@@ -15,7 +15,7 @@ class UserController(private val repository: UserRepository) {
 
     @Get("/{identifier}")
     fun getUser(@PathVariable identifier: String): HttpResponse<Any> {
-        val result = repository.getUser(identifier)
+        val result = repository.getUser(identifier) ?: return HttpResponse.notFound()
         return HttpResponse.ok(result)
     }
 

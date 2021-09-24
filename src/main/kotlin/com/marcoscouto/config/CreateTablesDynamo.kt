@@ -11,7 +11,6 @@ import software.amazon.awssdk.services.dynamodb.model.BillingMode.PAY_PER_REQUES
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement
 import software.amazon.awssdk.services.dynamodb.model.KeyType
-import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType
 
 @Singleton
@@ -24,8 +23,7 @@ class CreateTablesDynamo(
         createTableUser()
     }
 
-    fun createTableUser() {
-
+    private fun createTableUser() {
         if (!isTableExists()) {
             val keyDefinitions = KeySchemaElement.builder()
                 .attributeName(ID_ATTRIBUTE_NAME)
@@ -38,7 +36,7 @@ class CreateTablesDynamo(
                 .build()
 
             val request = CreateTableRequest.builder()
-                .tableName("users")
+                .tableName(USERS_TABLE)
                 .keySchema(keyDefinitions)
                 .attributeDefinitions(keyType)
                 .billingMode(PAY_PER_REQUEST)
@@ -48,14 +46,9 @@ class CreateTablesDynamo(
         }
     }
 
-    private fun isTableExists(): Boolean {
-
-        val tablesRequest = ListTablesRequest.builder()
-            .exclusiveStartTableName(USERS_TABLE)
-            .build()
-
-        return client.listTables(tablesRequest).hasTableNames()
-
-    }
+    private fun isTableExists() = client
+        .listTables()
+        .tableNames()
+        .contains(USERS_TABLE)
 
 }
