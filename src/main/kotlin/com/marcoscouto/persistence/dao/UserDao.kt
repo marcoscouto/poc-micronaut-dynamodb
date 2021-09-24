@@ -32,6 +32,17 @@ class UserDao(
         dynamoTable().putItem(user)
     }
 
+    override fun deleteUser(identifier: String) {
+        val table = dynamoTable()
+        val key = Key.builder().partitionValue(
+            AttributeValue.builder()
+                .s(identifier)
+                .build()
+        ).build()
+
+        table.deleteItem(key)
+    }
+
     private fun dynamoTable(): DynamoDbTable<User> {
 
         val enhanced = DynamoDbEnhancedClient.builder()

@@ -7,6 +7,7 @@ import io.micronaut.http.HttpStatus.CREATED
 import io.micronaut.http.HttpStatus.OK
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
@@ -29,8 +30,15 @@ class UserController(private val repository: UserRepository) {
 
     @Put("/{identifier}")
     fun saveUser(@PathVariable identifier: String, @Body user: User): HttpResponse<Any> {
-        val result = repository.getUser(identifier) ?: return HttpResponse.notFound()
+        repository.getUser(identifier) ?: return HttpResponse.notFound()
         repository.saveUser(user)
+        return HttpResponse.status(OK)
+    }
+
+    @Delete("/{identifier}")
+    fun deleteUser(@PathVariable identifier: String): HttpResponse<Any> {
+        repository.getUser(identifier) ?: return HttpResponse.notFound()
+        repository.deleteUser(identifier)
         return HttpResponse.status(OK)
     }
 

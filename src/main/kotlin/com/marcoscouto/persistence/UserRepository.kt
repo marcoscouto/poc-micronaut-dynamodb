@@ -8,4 +8,6 @@ interface UserRepository {
 
     fun saveUser(user: User)
 
+    fun deleteUser(identifier: String)
+
 }
