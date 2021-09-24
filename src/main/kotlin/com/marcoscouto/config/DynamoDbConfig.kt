@@ -14,13 +14,14 @@ class DynamoDbConfig(
     @Value("\${dynamodb.host}") private val host: String,
     @Value("\${dynamodb.accessKeyId}") private val accessKeyId: String,
     @Value("\${dynamodb.secretAccessKey}") private val secretAccessKey: String,
+    @Value("\${dynamodb.region}") private val region: String
 ) {
 
     @Primary
     @Singleton
     fun configClient(): DynamoDbClient {
         return DynamoDbClient.builder()
-            .region(Region.SA_EAST_1)
+            .region(Region.of(region))
             .credentialsProvider { credentials() }
             .endpointOverride(URI.create(host))
             .build()
