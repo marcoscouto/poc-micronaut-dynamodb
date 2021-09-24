@@ -22,19 +22,19 @@
 
 ## Endpoints
 
-Get - /users/{identifier}
+GET - /users/{identifier}
 
     Identifier (string)
     Reference for user identifier
 
-Post - /users
+POST - /users
 
     {
         "name": string,
         "age": int
     }
 
-Put - /users
+PUT - /users
 
     {
         "identifier": string
@@ -42,7 +42,7 @@ Put - /users
         "age": int
     }
 
-Delete - /users/{identifier}
+DELETE - /users/{identifier}
 
     Identifier (string)
 
