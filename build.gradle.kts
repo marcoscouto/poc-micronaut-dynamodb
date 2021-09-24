@@ -37,6 +37,10 @@ dependencies {
 
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
+    // DynamoDB
+    implementation("software.amazon.awssdk:dynamodb")
+
+
 }
 
 
